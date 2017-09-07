@@ -7,6 +7,7 @@ module ResourceSet
       @verb = (verb && verb.downcase.to_sym) || :get
       @path = path
       @query_keys = []
+      @body_handler = nil
     end
 
     def verb(v = nil)

@@ -8,6 +8,7 @@ module ResourceSet
       @connection = resource.connection
       @args = args
       @options = args.last.kind_of?(Hash) ? args.last : {}
+      @response = nil
     end
 
     def self.call(action, resource, *args)
