@@ -1,6 +1,6 @@
 require 'ostruct'
 
-module ResourceKit
+module ResourceSet
   module Testing
     class ActionHandlerMatchers
       ResponseStub = Class.new(OpenStruct)

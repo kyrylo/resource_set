@@ -1,4 +1,4 @@
-module ResourceKit
+module ResourceSet
   module Testing
     class HaveActionMatchers
       attr_reader :action, :path, :verb

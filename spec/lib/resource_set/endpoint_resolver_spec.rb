@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-RSpec.describe ResourceKit::EndpointResolver do
+RSpec.describe ResourceSet::EndpointResolver do
   describe '#initialize' do
     it 'initializes with pieces of a URL' do
       options = { path: '/users', namespace: '/v2', query_param_keys: ['per_page', 'page'] }
-      instance = ResourceKit::EndpointResolver.new(options)
+      instance = ResourceSet::EndpointResolver.new(options)
 
       expect(instance.path).to eq(options[:path])
       expect(instance.query_param_keys).to eq(options[:query_param_keys])
@@ -16,7 +16,7 @@ RSpec.describe ResourceKit::EndpointResolver do
     let(:query_param_keys) { [] }
     let(:options) { { path: path, query_param_keys: query_param_keys } }
 
-    subject(:resolver) { ResourceKit::EndpointResolver.new(options) }
+    subject(:resolver) { ResourceSet::EndpointResolver.new(options) }
 
     context 'simple resolve' do
       it 'creates a populated URL from passed values' do

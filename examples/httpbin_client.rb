@@ -1,6 +1,6 @@
-require 'resource_kit'
+require 'resource_set'
 
-class HTTPBinResource < ResourceKit::Resource
+class HTTPBinResource < ResourceSet::Resource
   resources do
     get '/ip' => :ip
     get '/status/:code' => :status

@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-RSpec.describe ResourceKit::Resource do
+RSpec.describe ResourceSet::Resource do
   describe '.resources' do
     subject(:resource) { Class.new(described_class) }
 
     it 'returns a resource collection' do
-      expect(resource.resources).to be_kind_of(ResourceKit::ResourceCollection)
+      expect(resource.resources).to be_kind_of(ResourceSet::ResourceCollection)
     end
 
     it 'yields a resource collection' do
-      expect { |b| resource.resources(&b) }.to yield_with_args(instance_of(ResourceKit::ResourceCollection))
+      expect { |b| resource.resources(&b) }.to yield_with_args(instance_of(ResourceSet::ResourceCollection))
     end
 
     context 'action methods' do
@@ -32,7 +32,7 @@ RSpec.describe ResourceKit::Resource do
   describe '#initialize' do
     it 'initializes with a connection' do
       faraday = Faraday.new(url: 'http://lol.com')
-      instance = ResourceKit::Resource.new(connection: faraday)
+      instance = ResourceSet::Resource.new(connection: faraday)
 
       expect(instance.connection).to be(faraday)
     end
@@ -41,7 +41,7 @@ RSpec.describe ResourceKit::Resource do
       connection = double('conn')
       scope = double('scope')
 
-      instance = ResourceKit::Resource.new(connection: connection, scope: scope)
+      instance = ResourceSet::Resource.new(connection: connection, scope: scope)
 
       expect(instance.connection).to be(connection)
       expect(instance.scope).to be(scope)
@@ -60,7 +60,7 @@ RSpec.describe ResourceKit::Resource do
 
       instance = DummyResource.new(connection: faraday)
 
-      expect(instance.action(:find)).to be_kind_of(ResourceKit::Action)
+      expect(instance.action(:find)).to be_kind_of(ResourceSet::Action)
     end
   end
 end

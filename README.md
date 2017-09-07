@@ -1,12 +1,12 @@
-# Resource Kit
+# Resource Set
 
-Resource Kit provides tools to aid in making API Clients. Such as URL resolving, Request / Response layer, and more.
+Resource Set provides tools to aid in making API Clients. Such as URL resolving, Request / Response layer, and more.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'resource_kit'
+    gem 'resource_set'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install resource_kit
+    $ gem install resource_set
 
 ## Usage
 
@@ -23,13 +23,13 @@ You'll see it in the examples provided below.
 
 ### Resource classes
 
-Resource Kit provides a comprehensive but intuitive DSL where you describe the remote resources capabilities.
+Resource Set provides a comprehensive but intuitive DSL where you describe the remote resources capabilities.
 For example, where can I get a list of users? Where do I get a single user? How do I create a user?
 
 When you're able to answer these questions, you can describe them in your resource class like this:
 
 ```ruby
-class DropletResource < ResourceKit::Resource
+class DropletResource < ResourceSet::Resource
   resources do
     default_handler(422) { |response| ErrorMapping.extract_single(response.body, :read) }
     default_handler(:ok, :created) { |response| DropletMapping.extract_single(response.body, :read) }
@@ -60,7 +60,7 @@ end
 You also have the option to use a shorter version to describe actions like this:
 
 ```ruby
-class DropletResource < ResourceKit::Resource
+class DropletResource < ResourceSet::Resource
   resources do
     action :all, 'GET /v2/droplets' do
       handler(:ok) { |response| DropletMapping.extract_collection(response.body, :read) }
@@ -72,7 +72,7 @@ end
 Instead of using `#action`, you can use any of the supported HTTP verb methods including `#get`, `#post`, `#put`, `#delete`, `#head`, `#patch`, and `#options`. Thus, the above example can be also written as:
 
 ```ruby
-class DropletResource < ResourceKit::Resource
+class DropletResource < ResourceSet::Resource
   resources do
     get :all, '/v2/droplets' do
       handler(:ok) { |response| DropletMapping.extract_collection(response.body, :read) }
@@ -81,7 +81,7 @@ class DropletResource < ResourceKit::Resource
 end
 ```
 
-Now that we've described our resources. We can instantiate our class with a connection object. ResourceKit relies on the interface that Faraday provides. For example:
+Now that we've described our resources. We can instantiate our class with a connection object. ResourceSet relies on the interface that Faraday provides. For example:
 
 ```ruby
 conn = Faraday.new(url: 'http://api.digitalocean.com') do |req|
@@ -101,12 +101,12 @@ create = resource.create(Droplet.new)
 
 ## Scope
 
-ResourceKit classes give you the option to pass in an optional scope object, so that you may interact with the resource with it that way.
+ResourceSet classes give you the option to pass in an optional scope object, so that you may interact with the resource with it that way.
 
 For example, you may want to use this for nested resources:
 
 ```ruby
-class CommentResource < ResourceKit::Resource
+class CommentResource < ResourceSet::Resource
   resources do
     action :all do
       path { "/users/#{user_id}/comments" }
@@ -126,17 +126,17 @@ comments = resource.all #=> Will fetch from /users/123/comments
 
 ## Test Helpers
 
-ResourceKit supplys test helpers that assist in certain things you'd want your resource classes to do.
+ResourceSet supplys test helpers that assist in certain things you'd want your resource classes to do.
 
 Make sure you:
 
-    require 'resource_kit/testing'
+    require 'resource_set/testing'
 
 Testing a certain action:
 
 ```ruby
-# Tag the spec with resource_kit to bring in the helpers
-RSpec.describe MyResourceClass, resource_kit: true do
+# Tag the spec with resource_set to bring in the helpers
+RSpec.describe MyResourceClass, resource_set: true do
   it 'has an all action' do
     expect(MyResourceClass).to have_action(:all).that_handles(:ok, :no_content).at_path('/users')
   end
@@ -158,7 +158,7 @@ Things we've thought about but just haven't implemented are:
 
 ## Contributing
 
-1. Fork it ( https://github.com/digitaloceancloud/resource_kit/fork )
+1. Fork it ( https://github.com/digitaloceancloud/resource_set/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

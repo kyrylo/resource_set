@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ResourceKit::ActionInvoker do
+RSpec.describe ResourceSet::ActionInvoker do
   let(:connection) { Faraday.new { |b| b.adapter :test, stubs } }
   let(:stubs) do
     Faraday::Adapter::Test::Stubs.new do |stub|
@@ -13,7 +13,7 @@ RSpec.describe ResourceKit::ActionInvoker do
       stub.get('/block_based') { |env| [200, {}, 'block based path'] }
     end
   end
-  let(:action) { ResourceKit::Action.new(:find) }
+  let(:action) { ResourceSet::Action.new(:find) }
   let(:resource) { double('resource instance', connection: connection) }
 
   describe '.call' do
@@ -21,14 +21,14 @@ RSpec.describe ResourceKit::ActionInvoker do
       action.verb :get
       action.path '/users'
 
-      result = ResourceKit::ActionInvoker.call(action, resource)
+      result = ResourceSet::ActionInvoker.call(action, resource)
 
       expect(result).to eq('all users')
     end
 
     it 'performs a request to the correct url when using a block for path' do
       action.path { '/block_based' }
-      result = ResourceKit::ActionInvoker.call(action, resource)
+      result = ResourceSet::ActionInvoker.call(action, resource)
 
       expect(result).to eq('block based path')
     end
@@ -37,7 +37,7 @@ RSpec.describe ResourceKit::ActionInvoker do
       action.verb :get
       action.path '/users/:id'
 
-      result = ResourceKit::ActionInvoker.call(action, resource, id: 12)
+      result = ResourceSet::ActionInvoker.call(action, resource, id: 12)
       expect(result).to eq('user 12')
     end
 
@@ -47,7 +47,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.path '/users'
         action.handler(200) { |response| 'changed' }
 
-        result = ResourceKit::ActionInvoker.call(action, resource)
+        result = ResourceSet::ActionInvoker.call(action, resource)
 
         expect(result).to eq('changed')
       end
@@ -58,7 +58,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.handler(200) { |response, hash| hash }
 
         target_hash = Hash.new
-        result = ResourceKit::ActionInvoker.call(action, resource, target_hash)
+        result = ResourceSet::ActionInvoker.call(action, resource, target_hash)
 
         expect(result).to be target_hash
       end
@@ -68,7 +68,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.path '/users/bad_page'
         action.handler(404) { |response| '404ed' }
 
-        result = ResourceKit::ActionInvoker.call(action, resource)
+        result = ResourceSet::ActionInvoker.call(action, resource)
         expect(result).to eq('404ed')
       end
 
@@ -77,7 +77,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.path '/users'
         action.handler { |response| 'Something unexpected happened.' }
 
-        result = ResourceKit::ActionInvoker.call(action, resource)
+        result = ResourceSet::ActionInvoker.call(action, resource)
         expect(result).to eq('Something unexpected happened.')
       end
     end
@@ -88,7 +88,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.path '/users'
         action.body { |object| 'i am a banana' }
 
-        result = ResourceKit::ActionInvoker.call(action, resource, 'echo me')
+        result = ResourceSet::ActionInvoker.call(action, resource, 'echo me')
         expect(result).to eq('i am a banana')
       end
 
@@ -97,7 +97,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.path '/users'
         action.body { |first, second| first + second }
 
-        result = ResourceKit::ActionInvoker.call(action, resource, 'echo me', ' another')
+        result = ResourceSet::ActionInvoker.call(action, resource, 'echo me', ' another')
         expect(result).to eq('echo me another')
       end
     end
@@ -107,7 +107,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.query_keys :per_page, :page
         action.path '/paged'
 
-        result = ResourceKit::ActionInvoker.call(action, resource, page: 3, per_page: 300)
+        result = ResourceSet::ActionInvoker.call(action, resource, page: 3, per_page: 300)
         addressed = Addressable::URI.parse(result)
 
         expect(addressed.query_values).to include('per_page' => '300', 'page' => '3')
@@ -120,7 +120,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.verb :get
         action.before_request { |req| req.headers['Owner-Id'] = 'bojangles' }
 
-        result = ResourceKit::ActionInvoker.call(action, resource)
+        result = ResourceSet::ActionInvoker.call(action, resource)
         expect(result).to eq('bojangles')
       end
 
@@ -129,7 +129,7 @@ RSpec.describe ResourceKit::ActionInvoker do
         action.verb :get
         action.before_request { |one, two, req| req.headers['Owner-Id'] = "#{one} #{two}" }
 
-        result = ResourceKit::ActionInvoker.call(action, resource, 'one', 'two')
+        result = ResourceSet::ActionInvoker.call(action, resource, 'one', 'two')
         expect(result).to eq('one two')
       end
 
@@ -143,7 +143,7 @@ RSpec.describe ResourceKit::ActionInvoker do
           action.verb :get
           action.before_request(:kickit)
 
-          invoker = ResourceKit::ActionInvoker.new(action, resource)
+          invoker = ResourceSet::ActionInvoker.new(action, resource)
 
           expect(invoker.handle_response).to eq('btabes')
         end
@@ -157,7 +157,7 @@ RSpec.describe ResourceKit::ActionInvoker do
           action.verb :get
           action.before_request(:kickit)
 
-          invoker = ResourceKit::ActionInvoker.new(action, resource, 'bobby', 'tables')
+          invoker = ResourceSet::ActionInvoker.new(action, resource, 'bobby', 'tables')
 
           expect(invoker.handle_response).to eq('bobby tables')
         end

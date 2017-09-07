@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'json'
 
-RSpec.describe ResourceKit::Testing::ActionHandlerMatchers do
-  let(:resource_class) { Class.new(ResourceKit::Resource) }
+RSpec.describe ResourceSet::Testing::ActionHandlerMatchers do
+  let(:resource_class) { Class.new(ResourceSet::Resource) }
   subject(:matcher) { described_class.new(:all) }
 
   describe '#initialize' do

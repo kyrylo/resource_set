@@ -1,4 +1,4 @@
-module ResourceKit
+module ResourceSet
   class ResourceCollection
     extend Forwardable
     def_delegators :@collection, :find, :<<, :each, :include?
@@ -14,7 +14,7 @@ module ResourceKit
       action.tap { |a| self << a }
     end
 
-    ResourceKit::ALLOWED_VERBS.each do |verb|
+    ResourceSet::ALLOWED_VERBS.each do |verb|
       define_method verb do |path_name, &block|
         path, name = path_name.to_a.flatten
         action(name, "#{verb.upcase} #{path}", &block)

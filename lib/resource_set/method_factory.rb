@@ -1,4 +1,4 @@
-module ResourceKit
+module ResourceSet
   class MethodFactory
     def self.construct(object, resource_collection, invoker = ActionInvoker)
       resource_collection.each do |action|

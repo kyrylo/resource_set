@@ -1,5 +1,5 @@
-require 'resource_kit'
-require 'resource_kit/testing'
+require 'resource_set'
+require 'resource_set/testing'
 require 'pry'
 require 'faraday'
 

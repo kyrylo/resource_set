@@ -1,4 +1,4 @@
-module ResourceKit
+module ResourceSet
   class ActionInvoker
     attr_reader :action, :connection, :args, :options, :resource
 

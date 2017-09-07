@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class DummyResourceActions < ResourceKit::Resource
+class DummyResourceActions < ResourceSet::Resource
   resources do
     action :dummy, 'GET /dummy' do
       handler(200) { |resp| resp.body.upcase }

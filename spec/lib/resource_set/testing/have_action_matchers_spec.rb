@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ResourceKit::Testing::HaveActionMatchers do
+RSpec.describe ResourceSet::Testing::HaveActionMatchers do
   describe '#initialize' do
     it 'initializes with a resource class' do
       action = :all
@@ -58,7 +58,7 @@ RSpec.describe ResourceKit::Testing::HaveActionMatchers do
     subject(:testing_matcher) { described_class.new(:all) }
 
     context 'for a resource that has the defined action' do
-      let(:resource_class) { Class.new(ResourceKit::Resource) }
+      let(:resource_class) { Class.new(ResourceSet::Resource) }
 
       it 'matches with both code and path' do
         resource_class.resources do
@@ -108,7 +108,7 @@ RSpec.describe ResourceKit::Testing::HaveActionMatchers do
 
   describe '#failure_message' do
     let(:resource_class) {
-      Class.new(ResourceKit::Resource) { |resource|
+      Class.new(ResourceSet::Resource) { |resource|
         resource.resources {
           action :all, 'POST valid_path' do
             handler(201)
