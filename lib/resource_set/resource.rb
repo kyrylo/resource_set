@@ -1,6 +1,6 @@
-require 'resource_kit/inheritable_attribute'
+require 'resource_set/inheritable_attribute'
 
-module ResourceKit
+module ResourceSet
   class Resource
     extend InheritableAttribute
     inheritable_attr :_resources

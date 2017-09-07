@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe ResourceKit::ResourceCollection do
-  subject(:collection) { ResourceKit::ResourceCollection.new }
+RSpec.describe ResourceSet::ResourceCollection do
+  subject(:collection) { ResourceSet::ResourceCollection.new }
 
   describe '#default_handler' do
     it 'adds the passed black to a hash of handlers on the resource collection' do
@@ -22,7 +22,7 @@ RSpec.describe ResourceKit::ResourceCollection do
 
   describe '#action' do
     it 'yields an action to the block' do
-      expect { |b| collection.action(:all, &b) }.to yield_with_args(instance_of(ResourceKit::Action))
+      expect { |b| collection.action(:all, &b) }.to yield_with_args(instance_of(ResourceSet::Action))
     end
 
     it 'adds the action to the collection' do
@@ -60,7 +60,7 @@ RSpec.describe ResourceKit::ResourceCollection do
 
       retrieved_action = collection.find_action(:all)
 
-      expect(retrieved_action).to be_kind_of(ResourceKit::Action)
+      expect(retrieved_action).to be_kind_of(ResourceSet::Action)
       expect(retrieved_action.name).to eq(:all)
     end
   end

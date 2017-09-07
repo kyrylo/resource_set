@@ -1,4 +1,4 @@
-module ResourceKit
+module ResourceSet
   module InheritableAttribute
     def inheritable_attr(name)
       instance_eval <<-RUBY

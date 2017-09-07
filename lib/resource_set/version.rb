@@ -1,3 +1,3 @@
-module ResourceKit
+module ResourceSet
   VERSION = "0.1.6"
 end

@@ -1,6 +1,6 @@
 require 'addressable/uri'
 
-module ResourceKit
+module ResourceSet
   class EndpointResolver
     attr_reader :path, :query_param_keys
 

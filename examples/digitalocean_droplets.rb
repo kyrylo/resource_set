@@ -19,7 +19,7 @@ class DropletMapping
   end
 end
 
-class DropletResource < ResourceKit::Resource
+class DropletResource < ResourceSet::Resource
   resources do
     action :all do
       verb :get

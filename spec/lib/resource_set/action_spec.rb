@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-RSpec.describe ResourceKit::Action do
-  subject(:action) { ResourceKit::Action.new(:bunk) }
+RSpec.describe ResourceSet::Action do
+  subject(:action) { ResourceSet::Action.new(:bunk) }
 
   describe '#initialize' do
     it 'initializes with a name' do
-      instance = ResourceKit::Action.new(:all)
+      instance = ResourceSet::Action.new(:all)
       expect(instance.name).to eq(:all)
     end
   end

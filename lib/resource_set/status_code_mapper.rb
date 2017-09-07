@@ -1,4 +1,4 @@
-module ResourceKit
+module ResourceSet
   class StatusCodeMapper
     MAP = {
       continue: 100,

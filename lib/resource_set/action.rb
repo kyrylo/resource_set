@@ -1,4 +1,4 @@
-module ResourceKit
+module ResourceSet
   class Action
     attr_reader :name
 

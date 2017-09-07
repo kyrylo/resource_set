@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe ResourceKit::InheritableAttribute do
+describe ResourceSet::InheritableAttribute do
   subject do
     Class.new(Object) do
-      extend ResourceKit::InheritableAttribute
+      extend ResourceSet::InheritableAttribute
 
       inheritable_attr :_resources
     end

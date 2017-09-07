@@ -1,7 +1,7 @@
-require 'resource_kit/testing/have_action_matchers'
-require 'resource_kit/testing/action_handler_matchers'
+require 'resource_set/testing/have_action_matchers'
+require 'resource_set/testing/action_handler_matchers'
 
-module ResourceKit
+module ResourceSet
   module Testing
     def have_action(action)
       HaveActionMatchers.new(action)
@@ -15,6 +15,6 @@ end
 
 if defined?(RSpec)
   RSpec.configure do |config|
-    config.include ResourceKit::Testing, resource_kit: true
+    config.include ResourceSet::Testing, resource_set: true
   end
 end
