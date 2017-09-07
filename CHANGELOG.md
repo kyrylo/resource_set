@@ -3,6 +3,8 @@ Resource Set Changelog
 
 ### master
 
+* Fixed Ruby warnings ([#7](https://github.com/kyrylo/resource_set/pull/7))
+
 ### [v1.0.0][v1.0.0] (September 8, 2017)
 
 * Fixed Fixnum deprecation warnings
