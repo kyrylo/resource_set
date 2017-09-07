@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-This library recommends using [Kartograph](http://github.com/digitaloceancloud/kartograph) for representing and deserializing response bodies.
+This library recommends using [Cartograph](http://github.com/kyrylo/cartograph) for representing and deserializing response bodies.
 You'll see it in the examples provided below.
 
 ### Resource classes
@@ -158,7 +158,7 @@ Things we've thought about but just haven't implemented are:
 
 ## Contributing
 
-1. Fork it ( https://github.com/digitaloceancloud/resource_set/fork )
+1. Fork it ( https://github.com/kyrylo/resource_set/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
