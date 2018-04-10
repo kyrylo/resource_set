@@ -3,6 +3,8 @@ Resource Set Changelog
 
 ### master
 
+### [v1.0.2][v1.0.2] (April 10, 2018)
+
 * Added support for duplicate query parameter keys
   ([#9](https://github.com/kyrylo/resource_set/pull/9))
 
@@ -17,3 +19,4 @@ Resource Set Changelog
 
 [v1.0.0]: https://github.com/kyrylo/resource_set/releases/tag/v1.0.0
 [v1.0.1]: https://github.com/kyrylo/resource_set/releases/tag/v1.0.1
+[v1.0.2]: https://github.com/kyrylo/resource_set/releases/tag/v1.0.2
