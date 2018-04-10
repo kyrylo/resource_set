@@ -6,6 +6,10 @@ module ResourceSet
       @action = action
       @resource = resource
       @connection = resource.connection
+
+      # Support for duplicate query parameter keys.
+      @connection.options.params_encoder = Faraday::FlatParamsEncoder
+
       @args = args
       @options = args.last.kind_of?(Hash) ? args.last : {}
       @response = nil

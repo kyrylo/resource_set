@@ -104,13 +104,17 @@ RSpec.describe ResourceSet::ActionInvoker do
 
     context 'for requests with query params' do
       it 'appends the query parameters to the endpoint' do
-        action.query_keys :per_page, :page
+        action.query_keys :per_page, :page, :name
         action.path '/paged'
 
-        result = ResourceSet::ActionInvoker.call(action, resource, page: 3, per_page: 300)
+        result = ResourceSet::ActionInvoker.call(
+          action, resource, page: 3, name: %w(foo bar)
+        )
         addressed = Addressable::URI.parse(result)
 
-        expect(addressed.query_values).to include('per_page' => '300', 'page' => '3')
+        expect(addressed.query_values(Array)).to eq(
+          [%w(name foo), %w(name bar), %w(page 3)]
+        )
       end
     end
 
